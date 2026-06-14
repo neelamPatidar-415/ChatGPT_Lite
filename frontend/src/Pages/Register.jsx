@@ -20,7 +20,7 @@ const Register = () => {
 
         axios
           .post(
-            "http://localhost:3001/api/auth/register",
+            "https://chatgpt-lite-xu4t.onrender.com/api/auth/register",
             {
               email: form.email,
               firstname: form.firstname,

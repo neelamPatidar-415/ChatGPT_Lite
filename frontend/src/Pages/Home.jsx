@@ -37,13 +37,13 @@ const Home = () => {
   useEffect(() => {
     const initApp = async () => {
       try {
-        await axios.get("http://localhost:3001/api/auth/me", {
+        await axios.get("https://chatgpt-lite-xu4t.onrender.com/api/auth/me", {
           withCredentials: true,
         });
 
         setIsLoggedIn(true);
 
-        const response = await axios.get("http://localhost:3001/api/chat", {
+        const response = await axios.get("https://chatgpt-lite-xu4t.onrender.com/api/chat", {
           withCredentials: true,
         });
 
@@ -58,7 +58,7 @@ const Home = () => {
           setMessages([]);
         }
 
-        const tempSocket = io("http://localhost:3001/", {
+        const tempSocket = io("https://chatgpt-lite-xu4t.onrender.com/", {
           withCredentials: true,
         });
 
@@ -103,7 +103,7 @@ const Home = () => {
     try {
       if (!chatId || chatId.length !== 24) {
         const res = await axios.post(
-          "http://localhost:3001/api/chat",
+          "https://chatgpt-lite-xu4t.onrender.com/api/chat",
           { title: trimmed.slice(0, 20) || "New Chat" },
           { withCredentials: true }
         );
@@ -136,7 +136,7 @@ const Home = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:3001/api/chat/messages/${chatId}`,
+        `https://chatgpt-lite-xu4t.onrender.com/api/chat/messages/${chatId}`,
         { withCredentials: true }
       );
 
@@ -156,7 +156,7 @@ const Home = () => {
   // Create new chat
   const handleNewChat = async () => {
     try {
-      await axios.get("http://localhost:3001/api/auth/me", {
+      await axios.get("https://chatgpt-lite-xu4t.onrender.com/api/auth/me", {
         withCredentials: true,
       });
 
@@ -169,7 +169,7 @@ const Home = () => {
       }
 
       const res = await axios.post(
-        "http://localhost:3001/api/chat",
+        "https://chatgpt-lite-xu4t.onrender.com/api/chat",
         { title },
         { withCredentials: true }
       );
@@ -197,7 +197,7 @@ const Home = () => {
   const handleLogout = async () => {
     try {
       await axios.post(
-        "http://localhost:3001/api/auth/logout",
+        "https://chatgpt-lite-xu4t.onrender.com/api/auth/logout",
         {},
         { withCredentials: true }
       );
