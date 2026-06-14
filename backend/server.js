@@ -10,7 +10,11 @@ const httpServer = createServer(app);
 connectDb();
 initSocketServer(httpServer);
 
+const PORT = process.env.PORT || 3001;
+httpServer.listen(PORT, ()=>{
+    console.log(`Server is listening on port ${PORT}`);
+});
 
-httpServer.listen(3000,()=>{
-    console.log("Server is listening on port 3000");
-})
+httpServer.on('error', (err) => {
+    console.error('Server error:', err);
+});

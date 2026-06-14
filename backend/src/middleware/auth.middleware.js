@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const userModel = require('../model/user.model');
 
-async function authMiddleware(req,res,next){
+async function authUser(req,res,next){
     // token check  karo 
     const token = req.cookies.token;
     if(!token){
@@ -21,4 +21,4 @@ async function authMiddleware(req,res,next){
     }
 }
 
-module.exports = authMiddleware;
+module.exports = { authUser };

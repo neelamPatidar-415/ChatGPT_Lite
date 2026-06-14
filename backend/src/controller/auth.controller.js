@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 async function register(req,res){
-    const { fullname:{firstname , lastname}, email, password } = req.body;
+    const { firstname , lastname, email, password } = req.body;
 
     const userExist = await userModel.findOne({email:email});
     if(userExist){
@@ -42,7 +42,32 @@ async function login(req,res){
     return res.status(201).json({message:"logged in successfull"})
 } 
 
+async function logout(req,res){
+    res.clearCookie("token");
+    return res.status(200).json({message:"Logged out successfully"});
+}
+
+async function checkAuth(req,res){
+    const token = req.cookies.token;
+    if(!token){
+        return res.status(401).json({message:"Unauthorized"});
+    }
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await userModel.findById(decoded._id);
+        if(!user){
+            return res.status(401).json({message:"Unauthorized"});
+        }
+        return res.status(200).json({user});
+    } catch (err) {
+        return res.status(401).json({message:"Unauthorized"});
+    }
+}
+
 module.exports = {
     register,
     login,
+    logout,
+    checkAuth
 }
