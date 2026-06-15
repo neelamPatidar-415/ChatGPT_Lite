@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { toast } from "react-toastify";
 
 const Register = () => {
     const [ form, setForm ] = useState({ email: '', firstname: '', lastname: '', password: '' });
@@ -33,11 +34,12 @@ const Register = () => {
           )
           .then((res) => {
             console.log(res);
+            toast.success("Registration successful, welcome!");
             navigate("/");
           })
           .catch((err) => {
             console.error(err);
-            alert("Registration failed (placeholder)");
+            toast.error("Registration failed, please try again");
           });
 
         try {

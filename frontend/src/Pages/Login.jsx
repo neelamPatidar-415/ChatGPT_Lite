@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link,useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+import { toast } from "react-toastify";
 
 const Login = () => {
     const [ form, setForm ] = useState({ email: '', password: '' });
@@ -30,9 +30,12 @@ const Login = () => {
             }
         ).then((res) => {
             console.log(res);
+            toast.success("Login successful, welcome back!");
+
             navigate("/");
         }).catch((err) => {
             console.error(err);
+            toast.error("Login failed, please check your credentials");
         }).finally(() => {
             setSubmitting(false);
         });
