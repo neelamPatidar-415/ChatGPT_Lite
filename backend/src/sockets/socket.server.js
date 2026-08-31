@@ -1,6 +1,3 @@
-
-////////////////////////////////////////////
-
 const { Server } = require("socket.io");
 const cookie = require('cookie');
 const jwt = require('jsonwebtoken');
@@ -8,6 +5,7 @@ const userModel = require("../model/user.model");
 const aiService = require("../services/ai.service");
 const messageModel = require("../model/message.model");
 const { createMemory, queryMemory } = require("../services/vector.service");
+const { validateInput, validateOutput  } = require("../services/guardrail.service");
 
 function initSocketServer(httpServer){
     const io = new Server(httpServer, {
@@ -48,6 +46,19 @@ function initSocketServer(httpServer){
             // messagePayLoad = JSON.parse(messagePayLoad);, metadata
 
             // console.log("Payload content:", messagePayLoad.content);
+
+            /// GUARDRAILS practise 
+            const guardrailResult = validateInput(messagePayLoad.content);
+
+            if (!guardrailResult.allowed) {
+                socket.emit("ai-response", {
+                content: guardrailResult.message,
+                chat: messagePayLoad.chat
+                });
+
+                return;
+            }
+
 
             const [message, vectors] = await Promise.all([
                 messageModel.create({
@@ -109,9 +120,15 @@ function initSocketServer(httpServer){
             ]
 
             const response = await aiService.generateResponse([...ltm, ...stm]);
-            socket.emit("ai-response",{
+            const outputGuardrail = validateOutput(response);
+
+            if (!outputGuardrail.allowed) {
+                response = outputGuardrail.message;
+            }
+
+            socket.emit("ai-response", {
                 content: response,
-                chat:messagePayLoad.chat
+                chat: messagePayLoad.chat
             });
 
             const [responseDb, responseVectors] = await Promise.all([

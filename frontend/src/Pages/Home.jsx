@@ -197,89 +197,89 @@ const Home = () => {
   const handleLogout = async () => {
     try {
       await axios.post(
-        "https://chatgpt-lite-xu4t.onrender.com/api/auth/logout",
-        {},
-        { withCredentials: true }
-      );
-
-      setIsLoggedIn(false);
-      window.location.reload();
-
-    } catch (err) {
-      console.error("Logout failed", err);
-    }
-  };
-
-  return (
-    <div className="chat-layout">
-      <div className="chat-body">
-
-        <ChatSidebar
-          chats={chats}
-          activeChatId={activeChatId}
-          onSelectChat={(id) => {
-            dispatch(selectChat(id));
-            getMessages(id);
-          }}
-          onNewChat={handleNewChat}
-          onClose={() => setSidebarOpen(false)}
-          open={sidebarOpen}
-        />
-
-        {sidebarOpen && (
-          <button
-            className="sidebar-backdrop"
-            onClick={() => setSidebarOpen(false)}
-          />
-        )}
-
-        <div className="chat-panel">
-          <div className="top-navbar">
-            <button
-              className="menu-btn"
-              onClick={() => setSidebarOpen(true)}
-            >
-              ☰
-            </button>
-
-            <div className="nav-title">ChatGPT Lite</div>
-
-            <div className="nav-actions">
-              {isLoggedIn ? (
-                <button onClick={handleLogout}>Logout</button>
-              ) : (
-                <button onClick={handleLogin}>Login</button>
-              )}
-            </div>
-          </div>
-
-          <main className="chat-main">
-            {messages.length === 0 && (
-              <div className="chat-welcome">
-                <h1>ChatGPT Lite</h1>
-                <p>Your AI assistant is live and ready to go.</p>
-                <p>
-                  Built by a learner, for learners—go ahead, explore, break
-                  things, and see what it can do.
-                </p>
-                <p>Try asking something and feel the vibe.</p>
-              </div>
-            )}
-
-            <ChatMessages messages={messages} isSending={isSending} />
-
-            <ChatComposer
-              input={input}
-              setInput={(v) => dispatch(setInput(v))}
-              onSend={sendMessage}
-              isSending={isSending}
-            />
-          </main>
-        </div>
-
-      </div>
-    </div>
-  );
-};
-
-export default Home;
+        "https://chatgpt-lite-xu4t.onrender.com/api/auth/logout", 
+        {}, 
+        { withCredentials: true } 
+      ); 
+ 
+      setIsLoggedIn(false); 
+      window.location.reload(); 
+ 
+    } catch (err) { 
+      console.error("Logout failed", err); 
+    } 
+  }; 
+ 
+  return ( 
+    <div className="chat-layout"> 
+      <div className="chat-body"> 
+ 
+        <ChatSidebar 
+          chats={chats} 
+          activeChatId={activeChatId} 
+          onSelectChat={(id) => { 
+            dispatch(selectChat(id)); 
+            getMessages(id); 
+          }} 
+          onNewChat={handleNewChat} 
+          onClose={() => setSidebarOpen(false)} 
+          open={sidebarOpen} 
+        /> 
+ 
+        {sidebarOpen && ( 
+          <button 
+            className="sidebar-backdrop" 
+            onClick={() => setSidebarOpen(false)} 
+          /> 
+        )} 
+ 
+        <div className="chat-panel"> 
+          <div className="top-navbar"> 
+            <button 
+              className="menu-btn" 
+              onClick={() => setSidebarOpen(true)} 
+            > 
+              ☰ 
+            </button> 
+ 
+            <div className="nav-title">ChatGPT Lite</div> 
+ 
+            <div className="nav-actions"> 
+              {isLoggedIn ? ( 
+                <button onClick={handleLogout}>Logout</button> 
+              ) : ( 
+                <button onClick={handleLogin}>Login</button> 
+              )} 
+            </div> 
+          </div> 
+ 
+          <main className="chat-main"> 
+            {messages.length === 0 && ( 
+              <div className="chat-welcome"> 
+                <h1>ChatGPT Lite</h1> 
+                <p>Your AI assistant is live and ready to go.</p> 
+                <p> 
+                  Built by a learner, for learners—go ahead, explore, break 
+                  things, and see what it can do. 
+                </p> 
+                <p>Try asking something and feel the vibe.</p> 
+              </div> 
+            )} 
+ 
+            <ChatMessages messages={messages} isSending={isSending} /> 
+ 
+            <ChatComposer 
+              input={input} 
+              setInput={(v) => dispatch(setInput(v))} 
+              onSend={sendMessage} 
+              isSending={isSending} 
+            /> 
+          </main> 
+        </div> 
+ 
+      </div> 
+    </div> 
+  ); 
+}; 
+ 
+export default Home; 
