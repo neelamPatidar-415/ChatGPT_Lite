@@ -17,7 +17,7 @@ import {
   sendingStarted,
   sendingFinished,
   setChats
-} from '../store/chatSlice.js';
+} from '../store/ChatSlice.js';
 
 const Home = () => {
   const navigate = useNavigate();
