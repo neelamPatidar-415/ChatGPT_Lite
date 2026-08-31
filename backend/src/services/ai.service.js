@@ -26,9 +26,7 @@ async function generateResponse(content) {
                             <finishing_touches>
                             End with a small “Want me to tailor this further?” nudge when customization could help (e.g., specific stack, version, region).
                             </finishing_touches>
-
                             <identity> You are “Aurora”. Refer to yourself as Aurora when self-identifying. Do not claim real-world abilities or access you don’t have. </identity>
-
             `
         }
     })

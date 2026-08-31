@@ -50,7 +50,6 @@ async function getMessages(req, res) {
         message: "Messages retrieved successfully",
         messages: messages
     })
-
 }
 
 module.exports = {
